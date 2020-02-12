@@ -87,13 +87,17 @@ _The `this` keyword refers to the new object._
 
 ```js
 class Car {
-    constructor(brand) {
-        this.brand = brand;
+    constructor(brandName, modelName) {
+        this.brand = brand || '';
+        this.model = modelName || '';
+
     }
 }
 
-let myCar = new Car("Toyota");
+let myCar = new Car("Toyota", "Corrolla");
 let yourCar = new Car("Honda");
+
+//comes back as an object
 ```
 
 ---
@@ -147,11 +151,12 @@ mazda.noise();
 ```js
 class School {
     constructor(name) {
-        this.name = name;
+        this.school = name;
     }
 
     noise = () => {
         console.log("...The sound of students growing...")
+        console.log(`At ${this.school}, students are learning`)
     }
 }
 let concordiaBootcamps = new School('Concordia Bootcamps');
@@ -160,6 +165,7 @@ let concordiaBootcamps = new School('Concordia Bootcamps');
 concordiaBootcamps.noise();
 
 // What do I have to type to output the name?
+concordiaBootcamps.school 
 
 ```
 
@@ -168,7 +174,7 @@ concordiaBootcamps.noise();
 ```js
 class Dog {
     constructor(voice) {
-        this.voice = voice;
+        this.voice = voice || 'bark';
     }
     noise = () => {
         console.log('woof');
@@ -220,7 +226,17 @@ class Car {
 let myCar = new Car();
 myCar.drive(); 
 ```
-
+---
+```js
+class Car {
+    constructor() {
+        this.mileage = 0;
+    }
+    drive = (amount) => { this.mileage = this.mileage + amount || 10 //to have a default}
+}
+let myCar = new Car();
+myCar.drive(100); 
+```
 ---
 
 ### Exercise
@@ -230,7 +246,18 @@ myCar.drive();
 // 2. How could we represent varying hunger levels based on activity?
 // 3. How about when it eats?
 class Animal {
-
+    constructor(name){
+        this.creature = name;
+        this.hungerLVL = hunger || 0;
+    }
+    //when it plays, it increases the hungerLVL by 20
+    play = () =>{
+        this.hungerLVL += 20;
+    }
+    //when it eats, it decreases the hungerLVL by 30
+    eat = () =>{
+        this.hungerLVL -= 30;
+    }
 }
 
 ```
@@ -266,6 +293,11 @@ class Male extends Human {
 
 // Create a bob object that is a HUMAN MALE
 let bob = new Male('Bob');
+
+//if you remove super from the contructor,
+// it will run the constructor that takes the name
+// accept the dance property from the Human class
+// but it wont run the Human constructor, no species key
 ```
 
 ---
